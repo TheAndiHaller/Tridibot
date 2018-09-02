@@ -30,7 +30,31 @@ The official project Doc: https://github.com/esp8266/Arduino/blob/master/doc/fil
 
 1)	**ArduinoWebSockets** library by Links2004. Download it from https://github.com/Links2004/arduinoWebSockets  
 2)	**ArduinoJson**, by bblanchon, https://github.com/bblanchon/ArduinoJson 
+3)  **Adafruit_NeoPixel**, by adafruit, https://github.com/adafruit/Adafruit_NeoPixel
 
 To install the libraries go to Sketch > Include Library > Add .ZIP Library and select the downloaded zip file. 
 
 
+### Download the code.
+
+So, now that we have downloaded everything, let’s upload the code to the microcontrollers.
+
+#### ESP8266
+1)	First we need to put the Tridibot in Programming mode. To do that, move the jumpers on the board.
+2)	Connect an UART adapter:
+GND (UART) = GND (Board) 
+Rx (UART) = Tx (Board) 
+Tx (UART) = Rx (Board) 
+3,3v (UART) = 3,3v (Board)
+3)	Open one of the Sketches of the **Tridibot_ESP** folder.
+4)	Go to Tools, Boards and select your ESP model.
+5)	Again, go to Tools and click on the ESP8266 Sketch Data Upload (This step can take a few minutes, depending on your ESP and the upload speed of your UART adapter).
+6)	After it finish uploading all files, hit the upload Sketch button.
+
+#### Arduino
+1)	Remove the UART adapter and all three jumpers
+2)	Connect the Arduino board to your computer.
+3)	Open the Sketch in the folder **Tridibot_arduino**.
+4)	Select the correct Arduino model from the Board Menu.
+5)	Upload the code.
+6)	Finally, put the jumpers back to the initial position.
