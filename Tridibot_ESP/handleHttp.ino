@@ -85,12 +85,7 @@ void handleServer() {
     }
   });
 
-  //server.serveStatic("/css/bootstrap.min.css", SPIFFS, "/css/bootstrap.min.css.gz", "max-age=86400");
-  //server.serveStatic("/css/my-style.css", SPIFFS, "/css/my-style.css", "max-age=86400");
-  //server.serveStatic("/js/bootstrap.min.js", SPIFFS, "/js/bootstrap.min.js", "max-age=86400");
   server.serveStatic("/js/jquery-3.2.1.min.js", SPIFFS, "/js/jquery-3.2.1.min.js", "max-age=86400");
-  //server.serveStatic("/js/popper.min.js", SPIFFS, "/js/popper.min.js", "max-age=86400");
-  
   server.serveStatic("/fonts/fontawesome.woff2", SPIFFS, "/fonts/fontawesome.woff2", "max-age=86400");
   
   server.serveStatic("/img/run.png", SPIFFS, "/img/run.png", "max-age=86400");

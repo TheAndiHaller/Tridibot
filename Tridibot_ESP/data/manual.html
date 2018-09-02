@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/bulma.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/my-style.css">
     <title>TRIDIBOT</title>
     <style type="text/css">
@@ -217,10 +217,10 @@
             </div>
         </nav>
 
-        <div class="" id="alertaDesconexion" role="alert" hidden="false">
+        <div class="alert alert-danger alert-dismissible fade show" id="alertaDesconexion" role="alert" style="display:none;">
             <strong>Error de Conexion!</strong> Actualiza la pagina para intentar reconectar.
             <button type="button" class="close" onclick="closeAlert()" ontouchstart="closeAlert()">
-                <span aria-hidden="false">&times;</span>
+                <span aria-hidden="true">&times;</span>
               </button>
         </div>
 
@@ -304,6 +304,9 @@
         </div>
     </div>
 
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/js/popper.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script>
         var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
         connection.onopen = function() {
@@ -317,11 +320,9 @@
 
         function connectionError() {
             if (connection.readyState === connection.CLOSED || connection.readyState === connection.CLOSING) {
-                //$('#alertaDesconexion').show();
-                document.getElementById("alertaDesconexion").setAttribute("hidden", "false");
+                $('#alertaDesconexion').show();
             } else {
-                //$('#alertaDesconexion').hide();
-                document.getElementById("alertaDesconexion").setAttribute("hidden", "true");
+                $('#alertaDesconexion').hide();
             }
         }
 
@@ -459,8 +460,7 @@
         }
 
         function closeAlert() {
-            //$('#alertaDesconexion').hide();
-            document.getElementById("alertaDesconexion").setAttribute("hidden", "true");
+            $('#alertaDesconexion').hide();
         }
 
     </script>

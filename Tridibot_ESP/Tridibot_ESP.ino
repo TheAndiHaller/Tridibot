@@ -32,7 +32,7 @@ boolean progMode = false;
 
 ESP8266WiFiMulti WiFiMulti;
 
-IPAddress apIP(1, 1, 1, 1);
+IPAddress apIP(192, 168, 1, 1);
 
 ESP8266WebServer server (80);
 WebSocketsServer webSocket = WebSocketsServer(81);
@@ -158,6 +158,3 @@ void loop() {
   }
 
 }
-
-
-
