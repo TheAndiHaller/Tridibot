@@ -42,10 +42,10 @@ So, now that we have downloaded everything, let’s upload the code to the micro
 #### ESP8266
 1)	First we need to put the Tridibot in Programming mode. To do that, move the jumpers on the board.
 2)	Connect an UART adapter:
-GND (UART) = GND (Board) 
-Rx (UART) = Tx (Board) 
-Tx (UART) = Rx (Board) 
-3,3v (UART) = 3,3v (Board)
+- GND (UART) = GND (Board) 
+- Rx (UART) = Tx (Board) 
+- Tx (UART) = Rx (Board) 
+- 3,3v (UART) = 3,3v (Board)
 3)	Open one of the Sketches of the **Tridibot_ESP** folder.
 4)	Go to Tools, Boards and select your ESP model.
 5)	Again, go to Tools and click on the ESP8266 Sketch Data Upload (This step can take a few minutes, depending on your ESP and the upload speed of your UART adapter).
