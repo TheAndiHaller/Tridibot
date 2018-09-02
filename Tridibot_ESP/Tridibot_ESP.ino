@@ -3,7 +3,6 @@
 #include <ESP8266WiFiMulti.h>
 #include <WebSocketsServer.h>
 #include <ESP8266WebServer.h>
-#include <Hash.h>
 #include <ArduinoJson.h>
 #include "FS.h"
 
