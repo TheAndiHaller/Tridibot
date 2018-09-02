@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/my-style.css">
+    <title>TRIDIBOT</title>
+
+    <style>
+        .box {
+            padding-top: 50px;
+            padding-right: 30px;
+            padding-bottom: 50px;
+            padding-left: 80px;
+        }
+
+        .hexa {
+            padding-top: 5px;
+            padding-right: 15px;
+            padding-bottom: 5px;
+            padding-left: 15px;
+        }
+
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand run" href="#"><img src="img/tridibot-sm.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" style="color: darkcyan"><i class="fa fa-compass" aria-hidden="true"></i> MODO MANUAL</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: cyan" href="/program.html"><i class="fa fa-retweet" aria-hidden="true"></i> MODO PROGRAMACION</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: darkcyan" href="/config.html"><i class="fa fa-cogs" aria-hidden="true"></i> CONFIGURACIONES</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>>
+        <div class="jumbotron">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+
+                    <button class="myButton" id="F" onclick="clonar('F')"><div class="hexagon"><span class="hexagonSpan"><i class="fa fa-arrow-up" aria-hidden="true"></i></span></div></button>
+
+                    <button class="myButton" id="B" onclick="clonar('B')"><div class="hexagon"><span class="hexagonSpan"><i class="fa fa-arrow-down" aria-hidden="true"></i></span></div></button>
+
+                    <button class="myButton" id="L" onclick="clonar('L')"><div class="hexagon"><span class="hexagonSpan"><i class="fa fa-arrow-left" aria-hidden="true"></i></span></div></button>
+
+                    <button class="myButton" id="R" onclick="clonar('R')"><div class="hexagon"><span class="hexagonSpan"><i class="fa fa-arrow-right" aria-hidden="true"></i></span></div></button>
+
+                    <button class="myButton" id="A" onclick="clonar('A')"><div class="hexagon"><span class="hexagonSpan"><i class="fa fa-arrow-left" aria-hidden="true"></i> <i class="fa fa-futbol-o" aria-hidden="true"></i></span></div></button>
+
+                    <button class="myButton" id="E" onclick="clonar('E')"><div class="hexagon"><span class="hexagonSpan"><i class="fa fa-futbol-o" aria-hidden="true"></i> <i class="fa fa-arrow-right" aria-hidden="true"></i></span></div></button>
+
+                    <button class="myButton" id="I" onclick="clonar('I')"><div class="hexagon"><span class="hexagonSpan"><i class="fa fa-hand-o-down" aria-hidden="true"></i></span></div></button>
+
+                    <button class="myButton" id="O" onclick="clonar('O')"><div class="hexagon"><span class="hexagonSpan"><i class="fa fa-hand-paper-o" aria-hidden="true"></i></span></div></button>
+
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 box" id="box">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-2 col-xs-2">
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-10 col-xs-10 myCenter">
+                    <button id="trashBtn" class="btn btn-danger" style="color: white" onclick="deleteAll()"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></button>
+                    <button id="runBtn" class="btn btn-info" style="color: white" onclick="buildSequence()"><i id="runIcon" class="fa fa-play fa-2x" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var contador = 0;
+        var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
+        var maxLnt = 0;
+        var cont;
+        var myNode;
+        deleteAll();
+        var runBtn = document.getElementById("runBtn");
+        var runIcon = document.getElementById("runIcon");
+        var trashBtn = document.getElementById("trashBtn");
+
+        function buildSequence() {
+
+            if (runBtn.className === "btn btn-info") {
+                cont = 0;
+                runBtn.className = "btn btn-warning";
+                runIcon.className = "fa fa-stop fa-2x";
+                trashBtn.disabled = true;
+                trashBtn.style.opacity = "0.5";
+
+                myNode = document.getElementById("box");
+                maxLnt = myNode.childElementCount;
+                connection.send("P" + myNode.childNodes[cont].name);
+                myNode.childNodes[cont].style.opacity = "0.5";
+                cont++;
+            } else {
+                runBtn.className = "btn btn-info";
+                runIcon.className = "fa fa-play fa-2x";
+                trashBtn.disabled = false;
+                trashBtn.style.opacity = "1";
+                cont = maxLnt;
+            }
+        }
+
+        connection.onmessage = function(e) {
+            var incoming = e.data;
+            if (incoming === "n") {
+                if (cont < maxLnt) {
+                    connection.send("P" + myNode.childNodes[cont].name);
+                    myNode.childNodes[cont].style.opacity = "0.5";
+                    cont++;
+                } else {
+                    cont = 0;
+                    connection.send("S");
+                    runBtn.className = "btn btn-info";
+                    runIcon.className = "fa fa-play fa-2x";
+                    trashBtn.disabled = false;
+                    trashBtn.style.opacity = "1";
+                    for (var i = 0; i < myNode.childElementCount; i++) {
+                        myNode.childNodes[i].style.opacity = "1";
+                    }
+
+                }
+            }
+        };
+
+        function deleteAll() {
+            myNodeAux = document.getElementById("box");
+            while (myNodeAux.lastChild) {
+                myNodeAux.removeChild(myNodeAux.lastChild);
+            }
+        }
+
+        function eliminar(id) {
+            var elementoArrastrado = document.getElementById(id);
+            elementoArrastrado.parentNode.removeChild(elementoArrastrado);
+        }
+
+        function clonar(id) {
+            var elementoArrastrado = document.getElementById(id);
+
+            var elementoClonado = elementoArrastrado.cloneNode(true);
+            elementoClonado.id = "clon" + elementoArrastrado.id + contador;
+            elementoClonado.name = elementoArrastrado.id;
+            contador++;
+            elementoClonado.style.position = "static";
+            document.getElementById("box").appendChild(elementoClonado);
+            document.getElementById(elementoClonado.id).setAttribute("onclick", "eliminar('" + elementoClonado.id + "')");
+            document.getElementById(elementoClonado.id).className = "myButton hexa";
+        }
+
+    </script>
+    <script type="text/javascript" src="/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/js/popper.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bulma.css">
+    <link rel="stylesheet" href="css/my-style.css">
+    <title>TRIDIBOT</title>
+    <style type="text/css">
+        body {
+            color: white;
+        }
+
+        .loader-wrapper {
+            position: fixed;
+            width: 100%;
+            height: 50%;
+            z-index: 1;
+
+        }
+
+
+        /*Loader 1- Spinning */
+
+        #loader-1 #loader {
+            position: relative;
+            left: 50%;
+            top: 50%;
+            height: 20vw;
+            width: 20vw;
+            margin: -10vw 0 0 -10vw;
+            border: 3px solid transparent;
+            border-top-color: darkcyan;
+            border-bottom-color: darkcyan;
+            border-radius: 50%;
+            z-index: 2;
+            -webkit-animation: spin 15s linear infinite;
+            -moz-animation: spin 15s linear infinite;
+            -o-animation: spin 15s linear infinite;
+            animation: spin 15s linear infinite;
+
+        }
+
+        #loader-1 #loader:before {
+            content: "";
+            position: absolute;
+            top: 2%;
+            bottom: 2%;
+            left: 2%;
+            right: 2%;
+            border: 3px solid transparent;
+            z-index: 2;
+            border-top-color: cyan;
+            border-radius: 50%;
+            -webkit-animation: spin 10s linear infinite;
+            -moz-animation: spin 10s linear infinite;
+            -o-animation: spin 10s linear infinite;
+            animation: spin 10s linear infinite;
+
+        }
+
+        #loader-1 #loader:after {
+            content: "";
+            position: absolute;
+            top: 5%;
+            bottom: 5%;
+            left: 5%;
+            right: 5%;
+            border: 3px solid transparent;
+            border-top-color: cyan;
+            z-index: 2;
+            border-radius: 50%;
+            -webkit-animation: spin 5s linear infinite;
+            -moz-animation: spin 5s linear infinite;
+            -o-animation: spin 5s linear infinite;
+            animation: spin 5s linear infinite;
+
+        }
+
+        /*Keyframes for spin animation */
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(0deg);
+                /* IE 9 */
+                transform: rotate(0deg);
+                /* Firefox 16+, IE 10+, Opera */
+            }
+
+            50% {
+                -webkit-transform: rotate(360deg);
+                /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(360deg);
+                /* IE 9 */
+                transform: rotate(180deg);
+                /* Firefox 16+, IE 10+, Opera */
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(360deg);
+                /* IE 9 */
+                transform: rotate(360deg);
+                /* Firefox 16+, IE 10+, Opera */
+            }
+        }
+
+
+        @-moz-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(0deg);
+                /* IE 9 */
+                transform: rotate(0deg);
+                /* Firefox 16+, IE 10+, Opera */
+            }
+
+            50% {
+                -webkit-transform: rotate(360deg);
+                /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(360deg);
+                /* IE 9 */
+                transform: rotate(180deg);
+                /* Firefox 16+, IE 10+, Opera */
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                /* Chrome, Opera 15+, Safari 3.1+ */
+                -ms-transform: rotate(360deg);
+                /* IE 9 */
+                transform: rotate(360deg);
+                /* Firefox 16+, IE 10+, Opera */
+            }
+        }
+
+        .barra {
+            max-width: 100%;
+            height: auto;
+            width: auto\9;
+            /* ie8 */
+            margin-top: 0px;
+            margin-bottom: 0px;
+            margin-right: 0px;
+            margin-left: 0px;
+
+        }
+
+        .run {
+            max-width: 100%;
+            height: auto;
+            width: auto\9;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            margin-right: 0px;
+            margin-left: 0px;
+            padding: 0px;
+            /* ie8 */
+        }
+
+        .walk {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto\9;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            margin-right: 0px;
+            margin-left: 0px;
+            padding: 0px;
+
+            /* ie8 */
+        }
+
+    </style>
+    <script>
+        function loadScreen() {
+
+            document.getElementById("loadScreen").setAttribute("hidden", "true");
+            document.getElementById("container").removeAttribute("hidden", "true");
+
+        }
+
+    </script>
+</head>
+
+<body onload="loadScreen()">
+    <div id="loadScreen">
+        <div class="loader-wrapper" id="loader-1">
+            <div id="loader"></div>
+
+        </div>
+    </div>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand run" href="#"><img src="img/tridibot-sm.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/" style="color: cyan"><i class="fa fa-compass" aria-hidden="true"></i> MODO MANUAL</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: darkcyan" href="/program.html"><i class="fa fa-retweet" aria-hidden="true"></i> MODO PROGRAMACION</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: darkcyan" href="/config.html"><i class="fa fa-cogs" aria-hidden="true"></i> CONFIGURACIONES</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        <div class="" id="alertaDesconexion" role="alert" hidden="false">
+            <strong>Error de Conexion!</strong> Actualiza la pagina para intentar reconectar.
+            <button type="button" class="close" onclick="closeAlert()" ontouchstart="closeAlert()">
+                <span aria-hidden="false">&times;</span>
+              </button>
+        </div>
+
+        <div class="jumbotron" hidden="true" id="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 myCenter">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button class="myButton"><div  onmousedown="forward()" ontouchstart="forward()" onmouseup="stop()" onmouseleave="stop()" ontouchend="stop()" class="hexagon"><span class="hexagonSpan"><i class="fa fa-arrow-up" aria-hidden="true"></i></span></div></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="align-content: flex-end">
+                            <button class="myButton"><div onmousedown="left()" ontouchstart="left()" onmouseup="stop()" onmouseleave="stop()" ontouchend="stop()" class="hexagon"><span class="hexagonSpan"><i class="fa fa-arrow-left" aria-hidden="true"></i></span></div></button>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 myCenter">
+                            <button class="myButton"><div onmousedown="right()" ontouchstart="right()" onmouseup="stop()" onmouseleave="stop()" ontouchend="stop()" class="hexagon"><span class="hexagonSpan"><i class="fa fa-arrow-right" aria-hidden="true"></i></span></div></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button class="myButton"><div onmousedown="back()" ontouchstart="back()" onmouseup="stop()" onmouseleave="stop()" ontouchend="stop()" class="hexagon"><span class="hexagonSpan"><i class="fa fa-arrow-down" aria-hidden="true"></i></span></div></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 myCenter">
+                            <h3 id="tridiname"></h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 myCenter walk">
+                            <img src="img/walk-sm.png" class="walk">
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 myCenter">
+                            <input style="background-color: #1e2832;" type="range" min="0" max="4" id="speed" ontouchend="speedSlider()" onmouseup="speedSlider()" onkeydown="return false;">
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 myCenter run">
+                            <img src="img/run.png" class="barra">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 myCenter">
+                            <input style="background-color: #1e2832;" type="range" min="0" max="7" id="color" ontouchend="colorSlider()" onmouseup="colorSlider()" onkeydown="return false;">
+                            <img src="img/barra-lg.png" class="barra">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 myCenter">
+                            <br/>
+                            <button id="motorStatus" type="button" class="btn btn-danger" onclick="motorOn()">No conectado</button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 myCenter">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button class="myButton"><div onmousedown="Dbtn()" ontouchstart="Dbtn()" onmouseup="stop()" onmouseleave="stop()" ontouchend="stop()" class="hexagon"><span class="hexagonSpan"><i class="fa fa-hand-paper-o" aria-hidden="true"></i></span></div></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="align-content: flex-end">
+                            <button class="myButton"><div onmousedown="Abtn()" ontouchstart="Abtn()" onmouseup="stop()" onmouseleave="stop()" ontouchend="stop()" class="hexagon"><span class="hexagonSpan"><i class="fa fa-arrow-left" aria-hidden="true"></i> <i class="fa fa-futbol-o" aria-hidden="true"></i></span></div></button>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <button class="myButton"><div onmousedown="Bbtn()" ontouchstart="Bbtn()" onmouseup="stop()" onmouseleave="stop()" ontouchend="stop()" class="hexagon"><span class="hexagonSpan"><i class="fa fa-futbol-o" aria-hidden="true"></i> <i class="fa fa-arrow-right" aria-hidden="true"></i></span></div></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button class="myButton"><div onmousedown="Cbtn()" ontouchstart="Cbtn()" onmouseup="stop()" onmouseleave="stop()" ontouchend="stop()" class="hexagon"><span class="hexagonSpan"><i class="fa fa-hand-o-down" aria-hidden="true"></i></span></div></button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
+        connection.onopen = function() {
+            connection.send("info");
+        };
+
+        connection.onerror = function(error) {
+            console.log('WebSocket Error ', error);
+
+        };
+
+        function connectionError() {
+            if (connection.readyState === connection.CLOSED || connection.readyState === connection.CLOSING) {
+                //$('#alertaDesconexion').show();
+                document.getElementById("alertaDesconexion").setAttribute("hidden", "false");
+            } else {
+                //$('#alertaDesconexion').hide();
+                document.getElementById("alertaDesconexion").setAttribute("hidden", "true");
+            }
+        }
+
+        connection.onmessage = function(e) {
+            console.log('Server: ', e.data);
+            var incoming = e.data;
+            if (incoming.startsWith("nom")) {
+
+                var colindex = incoming.indexOf("col");
+                var col = incoming.substring(colindex + 3, colindex + 4);
+
+                var velindex = incoming.indexOf("vel");
+                var vel = incoming.substring(velindex + 3, velindex + 4);
+
+                var namindex = incoming.indexOf("nom");
+                var nam = incoming.substring(namindex + 3, velindex - 1);
+
+                var motindex = incoming.indexOf("mot");
+                var mot = incoming.substring(motindex + 3, motindex + 4);
+                console.log(mot);
+
+                var colorInput = document.getElementById("color");
+                colorInput.value = col;
+
+                var speedInput = document.getElementById("speed");
+                speedInput.value = vel;
+
+                var tridinameH = document.getElementById("tridiname");
+                tridinameH.innerText = nam;
+
+                var motorStatus = document.getElementById("motorStatus");
+
+                if (mot === "Z") {
+                    motorStatus.innerHTML = "Motores prendidos";
+                    motorStatus.className = "btn btn-success";
+                } else if (mot === "Y") {
+                    motorStatus.innerHTML = "Motores apagados";
+                    motorStatus.className = "btn btn-danger";
+                }
+
+            }
+        };
+
+        function forward() {
+            connection.send("F");
+        }
+
+        function left() {
+            connection.send("L");
+        }
+
+        function right() {
+            connection.send("R");
+        }
+
+        function back() {
+            connection.send("B");
+        }
+
+        function Abtn() {
+            connection.send("A");
+        }
+
+        function Bbtn() {
+            connection.send("E");
+        }
+
+        function Cbtn() {
+            connection.send("I");
+        }
+
+        function Dbtn() {
+            connection.send("O");
+        }
+
+        function stop() {
+            connection.send("S");
+            connectionError();
+        }
+
+        document.onkeydown = keyPress;
+
+        function keyPress(e) {
+
+            var charCode = e.keyCode;
+
+            if (charCode === 87 || charCode === 38) {
+                connection.send("F");
+            } else if (charCode === 65 || charCode === 37) {
+                connection.send("L");
+            } else if (charCode === 68 || charCode === 39) {
+                connection.send("R");
+            } else if (charCode === 83 || charCode === 40) {
+                connection.send("B");
+            } else if (charCode === 49) {
+                connection.send("A");
+            } else if (charCode === 50) {
+                connection.send("E");
+            } else if (charCode === 51) {
+                connection.send("I");
+            } else if (charCode === 52) {
+                connection.send("O");
+            }
+
+        }
+        document.onkeyup = keyUp;
+
+        function keyUp(e) {
+            connection.send("S");
+            connectionError();
+        }
+
+        function colorSlider() {
+            var colorInput = document.getElementById("color");
+            connection.send("C" + colorInput.value);
+            connection.send("S");
+        }
+
+        function speedSlider() {
+            var speedInput = document.getElementById("speed");
+            connection.send("V" + speedInput.value);
+            connection.send("S");
+        }
+
+        function motorOn() {
+
+            var motorStatus = document.getElementById("motorStatus");
+            if (motorStatus.className === "btn btn-danger") {
+                connection.send("Z");
+                connection.send("S");
+            } else if (motorStatus.className === "btn btn-success") {
+                connection.send("Y");
+                connection.send("S");
+            }
+        }
+
+        function closeAlert() {
+            //$('#alertaDesconexion').hide();
+            document.getElementById("alertaDesconexion").setAttribute("hidden", "true");
+        }
+
+    </script>
+</body>
+
+</html>
