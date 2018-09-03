@@ -57,4 +57,9 @@ So, now that we have downloaded everything, let’s upload the code to the micro
 3)	Open the Sketch in the folder **Tridibot_arduino**.
 4)	Select the correct Arduino model from the Board Menu.
 5)	Upload the code.
-6)	Finally, put the jumpers back to the initial position.
+6)	Put the jumpers back to the initial position.
+
+### Finally
+Please keep in mind that Tridibot is still work in progress and there is still a lot to improve! Because of that, Tridibot has the feature to upload code OTA (over the air). This comes in handy if you want to modify the code of the ESP (Firmware and the web server files). 
+The OTA feature is basically copy paste from the **FSBrowser** example that comes with the ESP8266 board library, so if you want to know how to use it, I recommend you to check out that example.
+
