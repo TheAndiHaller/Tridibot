@@ -65,3 +65,4 @@ Please keep in mind that Tridibot is still work in progress and there is still a
 The OTA feature is basically copy paste from the **FSBrowser** example that comes with the ESP8266 board library, so if you want to know how to use it, I recommend you to check out that example.
 
 
+If you are interested in this project and have a suggestion or you just want to say hi, feel free to contact me @andih256 or @konredus on Instagram!
