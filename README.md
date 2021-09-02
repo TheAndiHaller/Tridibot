@@ -1,3 +1,14 @@
+# Improvements
+- Make OTA work properly
+- Fix dynamic file server for files
+- Stop using JSON lib
+- Improve the way commands are sent
+
+- Stop using jquerry, manage everything with JS
+- Change Bootstrap for pure CSS
+- Delete load animation
+- 
+
 # Tridibot
 
 Tridibot is an open source robot, originally created for educational purposes. You can download the code to build your own Tridibot from this repository. 
