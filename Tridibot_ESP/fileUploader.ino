@@ -1,4 +1,4 @@
-File fsUploadFile;
+  File fsUploadFile;
 
 String formatBytes(size_t bytes) {
   if (bytes < 1024) {
