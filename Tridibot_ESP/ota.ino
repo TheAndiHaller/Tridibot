@@ -1,8 +1,14 @@
 // configuraciones para actualizar el firmware por wifi
 void otaInit() {
-  const char* update_path = "/firmware";
-  const char* update_username = "admin";
-  const char* update_password = "admin";
+  ArduinoOTA.onStart([]() {
+    String type;
+    if (ArduinoOTA.getCommand() == U_FLASH) {
+      type = "sketch";
+    } else { // U_FS
+      type = "filesystem";
+      SPIFFS.end();   // Unmount FS using LittleFS.end()
+    }
+  });
 
-  httpUpdater.setup(&server, update_path, update_username, update_password);
+  ArduinoOTA.begin();
 }

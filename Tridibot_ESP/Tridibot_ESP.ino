@@ -1,5 +1,3 @@
-#include <Arduino.h>
-#include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
 #include <WebSocketsServer.h>
 #include <ESP8266WebServer.h>
@@ -7,11 +5,7 @@
 #include "FS.h"
 
 //OTA Stuff
-#include <ESP8266HTTPUpdateServer.h>
-ESP8266HTTPUpdateServer httpUpdater;
-
-//Uncomment to debug
-//#define debug
+#include <ArduinoOTA.h>
 
 int clientCont = 0;
 long previousMillis = 0;
@@ -35,6 +29,8 @@ IPAddress apIP(1, 2, 3, 4); //cambio de ip
 ESP8266WebServer server (80);
 WebSocketsServer webSocket = WebSocketsServer(81);
 
+#define STASSID "AH-3D"
+#define STAPSK  "1234567890"
 
 void sendCommand() {
   if (com.equals("S")) {
@@ -105,19 +101,23 @@ void sendCommand() {
 
 void setup() {
   Serial.begin(115200);
-  delay(100);
+  delay(1000);
+
+  otaInit();
 
   SPIFFS.begin();
   delay(100);
 
-  connectionConfig();
+  //connectionConfig();
+  
+  WiFiMulti.addAP(STASSID, STAPSK);
+  WiFiMulti.run()
+  
   delay(100);
 
   webSocket.begin();
   webSocket.onEvent(webSocketEvent);
   delay(100);
-
-  otaInit();
 
   handleServer();
   delay(100);
@@ -125,8 +125,8 @@ void setup() {
 
 }
 
-
 void loop() {
+  ArduinoOTA.handle();
   webSocket.loop();
   server.handleClient();
   sendCommand();
